@@ -1,5 +1,7 @@
 
 
+// Milestone 1
+
 
 // Array di posts; ogni oggetto è un post
 // Ogni oggetto posto deve contenere: id, nome autore, foto autore, data del post, testo, immagine, numero like
@@ -52,3 +54,100 @@ const posts = [
     }
 ];
 console.log(posts);
+
+
+
+
+// Milestone 2 - Prendendo come riferimento il layout di esempio presente nell'html, stampiamo i post del nostro feed.
+
+
+
+// Richiama il div container generale
+const container = document.getElementById('container');
+
+// Crea questa struttura per 5 volte (quanti sono i post) tramite ciclo for 
+for (let i = 0; i < posts.length; i++) {
+
+
+    // All'interno del div container aggiungere con js il contenitore per ogni singolo post
+    const singlePost = document.createElement('div');
+    singlePost.classList.add('post');
+    container.append(singlePost);
+
+
+    // All'interno del div singlePost aggiungere in js il contenitore post-header --> sarà la stessa cosa per postText - postImage - postFooter
+    const postHeader = document.createElement('div');
+    postHeader.classList.add('post__header');
+    singlePost.append(postHeader);
+
+    // All'interno del div post-header aggiungere in js il contenitore post-meta
+    const postMeta = document.createElement('div');
+    postMeta.classList.add('post-meta');
+    postHeader.append(postMeta);
+
+    // All'interno del div post-meta aggiungere in js il contenitore post-meta-icon
+    const postMetaIcon = document.createElement('div');
+    postMetaIcon.classList.add('post-meta__icon');
+    postMeta.append(postMetaIcon);
+
+        // Qui dentro dovrò inserire le immagini profilo
+        const authorIcon  =  `<img class="profile-pic" src="${posts[i].authorPhoto}">`;
+        
+        postMetaIcon.innerHTML = authorIcon;
+
+    // All'interno del div post-meta aggiungere in js il contenitore post-meta-data
+    const postMetaData = document.createElement('div');
+    postMetaData.classList.add('post-meta__data');
+    postMeta.append(postMetaData);
+
+        // Qui dentro dovrò inserire il nome degli autori e le date di creazione dei post
+        const authorData  =  `<div class="post-meta__author">${posts[i].authorName}</div>
+                              <div class="post-meta__time">${posts[i].created}</div>  `;
+        
+        postMetaData.innerHTML = authorData;
+
+    // All'interno del div singlePost aggiungere in js il contenitore post-text
+    const postText = document.createElement('div');
+    postText.classList.add('post__text');
+    postText.innerHTML = `<div class="post-meta__author">${posts[i].text}</div>`;
+    singlePost.append(postText);
+
+    // All'interno del div singlePost aggiungere in js il contenitore post-image
+    const postImage = document.createElement('div');
+    postImage.classList.add('post__image');
+    postImage.innerHTML = `<img src="${posts[i].image}">`;
+    singlePost.append(postImage);
+
+    // All'interno del div singlePost aggiungere in js il contenitore post-footer
+    const postFooter = document.createElement('div');
+    postFooter.classList.add('post__footer');
+    singlePost.append(postFooter);
+
+    // All'interno del div post-footer aggiungere in js il contenitore post-likes
+    const postLikes = document.createElement('div');
+    postLikes.classList.add('likes', 'js-likes');
+    postFooter.append(postLikes);
+
+    // // All'interno del div post-likes aggiungere in js il contenitore like-thumb
+    const likeThumb = document.createElement('div');
+    likeThumb.classList.add('likes__cta');
+    postLikes.append(likeThumb);
+
+    //     // Link al pollice alzato + scritta
+        const link = document.createElement('a');
+        link.classList.add('like-button', 'js-like-button');
+        link.setAttribute('href', '#');
+        link.setAttribute('data-postid', `${posts[i].id}`);
+        link.innerHTML = `<i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
+                          <span class="like-button__label">Mi Piace</span>`;
+
+        likeThumb.append(link);
+
+
+    // // All'interno del div post-likes aggiungere in js il contenitore like-counter
+    const likeCounter = document.createElement('div');
+    likeCounter.classList.add('likes__counter');
+    postLikes.append(likeCounter);
+    likeCounter.innerHTML = `Piace a <b id="like-counter-1" class="js-likes-counter">${posts[i].likes}</b> persone`;
+
+}
