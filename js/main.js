@@ -77,7 +77,7 @@ console.log(posts);
 
 
 // Secondo array per salvare gli ID dei post su cui ho cliccato
-const arrayPostLiked = [];
+let arrayPostLiked = [];
 
 
 // Milestone 2 e 3
@@ -228,7 +228,7 @@ for (let i = 0; i < posts.length; i++) {
         function() {
 
             // Salva l'id di quel post in un array a parte
-            arrayPostLiked.push(posts[i].id);
+            arrayPostLiked.push((posts[i].id));
             console.log(arrayPostLiked);
 
             // Metti colore verde
@@ -250,6 +250,22 @@ for (let i = 0; i < posts.length; i++) {
 
                             // Decremento counter di 1 
                             likeCounter.innerHTML = `Piace a <b id="like-counter-1" class="js-likes-counter">${(posts[i].likes + 1) - 1}</b> persone`;
+
+                            // Oppure 
+                            arrayPostLiked = [];
+                            console.log(arrayPostLiked);
+                        }
+                        else {
+                            // Salva l'id di quel post in un array a parte
+                            arrayPostLiked.push((posts[i].id));
+                            console.log(arrayPostLiked);
+
+                            // Metti colore verde
+                            link.innerHTML = `<i class="like-button__icon fas fa-thumbs-up like-button--liked" aria-hidden="true"></i>
+                            <span class="like-button__label like-button--liked">Mi Piace</span>`;
+
+                            // Incremento counter di 1 
+                            likeCounter.innerHTML = `Piace a <b id="like-counter-1" class="js-likes-counter">${posts[i].likes + 1}</b> persone`;
                         }
                     }
             )
