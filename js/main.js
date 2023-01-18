@@ -249,7 +249,7 @@ for (let i = 0; i < posts.length; i++) {
                             <span class="like-button__label">Mi Piace</span>`;
 
                             // Decremento counter di 1 
-                            likeCounter.innerHTML = `Piace a <b id="like-counter-1" class="js-likes-counter">${posts[i].likes - 1}</b> persone`;
+                            likeCounter.innerHTML = `Piace a <b id="like-counter-1" class="js-likes-counter">${(posts[i].likes + 1) - 1}</b> persone`;
                         }
                     }
             )
