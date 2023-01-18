@@ -14,7 +14,7 @@ Salviamo in un secondo array gli id dei post ai quali abbiamo messo il like. OK
 
 BONUS:
 1. Formattare le date in formato italiano (gg/mm/aaaa) OK
-2. Gestire l'assenza dell'immagine profilo con un elemento di fallback che contiene le iniziali dell'utente (es. Luca Formicola LF).
+2. Gestire l'assenza dell'immagine profilo con un elemento di fallback che contiene le iniziali dell'utente (es. Luca Formicola LF). OK
 3. Al click su un pulsante "Mi Piace" di un post, se abbiamo già cliccato dobbiamo decrementare il contatore e cambiare il colore del bottone.
 
 */
@@ -222,26 +222,39 @@ for (let i = 0; i < posts.length; i++) {
     likeCounter.innerHTML = `Piace a <b id="like-counter-1" class="js-likes-counter">${posts[i].likes}</b> persone`;
 
 
-    // All'evento clicca il link (che per me è sia icona che testo)
+    // All'evento 1 clicca il link (che per me è sia icona che testo)
     link.addEventListener ('click',
         
         function() {
 
-            // Cambia colore
+            // Salva l'id di quel post in un array a parte
+            arrayPostLiked.push(posts[i].id);
+            console.log(arrayPostLiked);
+
+            // Metti colore verde
             link.innerHTML = `<i class="like-button__icon fas fa-thumbs-up like-button--liked" aria-hidden="true"></i>
             <span class="like-button__label like-button--liked">Mi Piace</span>`;
 
             // Incremento counter di 1 
             likeCounter.innerHTML = `Piace a <b id="like-counter-1" class="js-likes-counter">${posts[i].likes + 1}</b> persone`;
 
-            // Allora salva l'id di quel post in un array a parte
-            arrayPostLiked.push(posts[i].id);
-            console.log(arrayPostLiked);
+            // All'evento 2, 
+            link.addEventListener ('click',
+            
+                function () {
 
-        }
+                        if (arrayPostLiked.includes(posts[i].id)) {
+                            // Togli colore
+                            link.innerHTML = `<i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
+                            <span class="like-button__label">Mi Piace</span>`;
+
+                            // Decremento counter di 1 
+                            likeCounter.innerHTML = `Piace a <b id="like-counter-1" class="js-likes-counter">${posts[i].likes - 1}</b> persone`;
+                        }
+                    }
+            )
+         }
     )
-
-
 
 
 }
