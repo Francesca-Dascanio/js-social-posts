@@ -1,10 +1,27 @@
+/*
+
+Milestone 1:
+- Array di posts; ogni oggetto è un post
+- Ogni oggetto posto deve contenere: id, nome autore, foto autore, data del post, testo, immagine, numero like
+
+Milestone 2:
+- Prendendo come riferimento il layout di esempio presente nell'html, stampiamo i post del nostro feed.
+
+Milestone 3 - Se clicchiamo sul tasto "Mi Piace":
+1. cambiamo il colore al testo del bottone OK
+2. incrementiamo il counter dei likes relativo. OK
+Salviamo in un secondo array gli id dei post ai quali abbiamo messo il like. OK
+
+BONUS:
+1. Formattare le date in formato italiano (gg/mm/aaaa)
+2. Gestire l'assenza dell'immagine profilo con un elemento di fallback che contiene le iniziali dell'utente (es. Luca Formicola LF).
+3. Al click su un pulsante "Mi Piace" di un post, se abbiamo già cliccato dobbiamo decrementare il contatore e cambiare il colore del bottone.
+
+*/
+
 
 
 // Milestone 1
-
-
-// Array di posts; ogni oggetto è un post
-// Ogni oggetto posto deve contenere: id, nome autore, foto autore, data del post, testo, immagine, numero like
 const posts = [
     {
         id: 1,
@@ -55,14 +72,15 @@ const posts = [
 ];
 console.log(posts);
 
+
+
+
+
 // Secondo array per salvare gli ID dei post su cui ho cliccato
 const arrayPostLiked = [];
 
 
-// Milestone 2 - Prendendo come riferimento il layout di esempio presente nell'html, stampiamo i post del nostro feed.
-
-
-
+// Milestone 2 e 3
 // Richiama il div container generale
 const container = document.getElementById('container');
 
@@ -70,6 +88,26 @@ const container = document.getElementById('container');
 for (let i = 0; i < posts.length; i++) {
 
 
+    // INIZIO BONUS 1: formatta la data (il valore della proprietà created) in formato italiano
+    const string = posts[i].created;
+
+    const dataSplitted = string.split('-');
+
+    const dataInverted = [];
+
+    for (let i = dataSplitted.length - 1; i >= 0; i--) {
+        dataInverted.push(dataSplitted[i]);
+    }
+
+    const newString = dataInverted.join('-');
+    console.log(newString);
+
+    posts[i].created = newString;
+    console.log(posts[i].created);
+    // FINE BONUS 1
+
+
+    // INSERIMENTO IN HTML
     // All'interno del div container aggiungere con js il contenitore per ogni singolo post
     const singlePost = document.createElement('div');
     singlePost.classList.add('post');
@@ -172,11 +210,9 @@ for (let i = 0; i < posts.length; i++) {
     )
 
 
+
+
 }
 
 
-/* Milestone 3 - Se clicchiamo sul tasto "Mi Piace":
-1. cambiamo il colore al testo del bottone OK
-2. incrementiamo il counter dei likes relativo. OK
-Salviamo in un secondo array gli id dei post ai quali abbiamo messo il like. OK
-*/
+
