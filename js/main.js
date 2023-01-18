@@ -55,7 +55,8 @@ const posts = [
 ];
 console.log(posts);
 
-
+// Secondo array per salvare gli ID dei post su cui ho cliccato
+const arrayPostLiked = [];
 
 
 // Milestone 2 - Prendendo come riferimento il layout di esempio presente nell'html, stampiamo i post del nostro feed.
@@ -136,7 +137,7 @@ for (let i = 0; i < posts.length; i++) {
     //     // Link al pollice alzato + scritta
         const link = document.createElement('a');
         link.classList.add('like-button', 'js-like-button');
-        link.setAttribute('href', '#');
+        // link.setAttribute('href', '#');
         link.setAttribute('data-postid', `${posts[i].id}`);
         link.innerHTML = `<i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
                           <span class="like-button__label">Mi Piace</span>`;
@@ -150,4 +151,32 @@ for (let i = 0; i < posts.length; i++) {
     postLikes.append(likeCounter);
     likeCounter.innerHTML = `Piace a <b id="like-counter-1" class="js-likes-counter">${posts[i].likes}</b> persone`;
 
+
+    // All'evento clicca il link (che per me è sia icona che testo)
+    link.addEventListener ('click',
+        
+        function() {
+
+            // Cambia colore
+            link.innerHTML = `<i class="like-button__icon fas fa-thumbs-up like-button--liked" aria-hidden="true"></i>
+            <span class="like-button__label like-button--liked">Mi Piace</span>`;
+
+            // Incremento counter di 1 
+            likeCounter.innerHTML = `Piace a <b id="like-counter-1" class="js-likes-counter">${posts[i].likes + 1}</b> persone`;
+
+            // Allora salva l'id di quel post in un array a parte
+            arrayPostLiked.push(posts[i].id);
+            console.log(arrayPostLiked);
+
+        }
+    )
+
+
 }
+
+
+/* Milestone 3 - Se clicchiamo sul tasto "Mi Piace":
+1. cambiamo il colore al testo del bottone OK
+2. incrementiamo il counter dei likes relativo. OK
+Salviamo in un secondo array gli id dei post ai quali abbiamo messo il like. OK
+*/
