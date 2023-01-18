@@ -13,7 +13,7 @@ Milestone 3 - Se clicchiamo sul tasto "Mi Piace":
 Salviamo in un secondo array gli id dei post ai quali abbiamo messo il like. OK
 
 BONUS:
-1. Formattare le date in formato italiano (gg/mm/aaaa)
+1. Formattare le date in formato italiano (gg/mm/aaaa) OK
 2. Gestire l'assenza dell'immagine profilo con un elemento di fallback che contiene le iniziali dell'utente (es. Luca Formicola LF).
 3. Al click su un pulsante "Mi Piace" di un post, se abbiamo già cliccato dobbiamo decrementare il contatore e cambiare il colore del bottone.
 
@@ -132,7 +132,39 @@ for (let i = 0; i < posts.length; i++) {
         // Qui dentro dovrò inserire le immagini profilo
         const authorIcon  =  `<img class="profile-pic" src="${posts[i].authorPhoto}">`;
         
-        postMetaIcon.innerHTML = authorIcon;
+        
+        // INIZIO BONUS 2
+        if (authorIcon == `<img class="profile-pic" src="null">`) {
+            
+            // Crea sfondo sostitutivo 
+            postMetaIcon.classList.add('fallback-width');
+
+            const fallback = document.createElement('div');
+            fallback.classList.add('profile-pic','fallback');
+
+            // Crea iniziali 
+            const stringAuthor = posts[i].authorName;
+            const stringSplitted = stringAuthor.split(' ');
+
+            let arrayInitials = [];
+
+            for (let i = 0; i < stringSplitted.length; i++) {
+                console.log(stringSplitted[i]);
+                const wordsSplitted = stringSplitted[i].split('');
+                const letters = wordsSplitted[0];
+                arrayInitials.push(letters);
+            }
+            
+            const initials = arrayInitials.join('');
+            fallback.innerHTML = `${initials}`;
+
+            postMetaIcon.append(fallback);
+
+        }
+        else {
+            postMetaIcon.innerHTML = authorIcon;
+        }
+        // FINE BONUS 2
 
     // All'interno del div post-meta aggiungere in js il contenitore post-meta-data
     const postMetaData = document.createElement('div');
